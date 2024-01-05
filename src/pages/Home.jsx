@@ -13,11 +13,12 @@ export const Home = () => {
     fetch('https://7f678c67a9e8e4e6.mokky.dev/items')
       .then(res => res.json())
       .then(data => setItems(data))
-      .finally(() => setIsLoading(false))
+      .finally(() => setIsLoading(false));
+		window.scrollTo(0, 0);
   }, []);
 
 	return (
-		<>
+		<div className='container'>
 			<div className="content__top">
 				<Categories />
 				<Sort />
@@ -39,6 +40,6 @@ export const Home = () => {
 							/>
 					  ))}
 			</div>
-		</>
+		</div>
 	);
 };

@@ -6,24 +6,34 @@ import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 
 export const Home = () => {
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState(0);
+	const [items, setItems] = React.useState([]);
+	const [isLoading, setIsLoading] = React.useState(true);
+	const [categoryId, setCategoryId] = React.useState(0);
+	const [sortType, setSortType] = React.useState({
+		name: 'популярности',
+		sortProperty: 'rating',
+	});
 
-  React.useEffect(() => {
-		setIsLoading(true)
-    fetch('https://7f678c67a9e8e4e6.mokky.dev/items?category=' + categoryId)
-      .then(res => res.json())
-      .then(data => setItems(data))
-      .finally(() => setIsLoading(false));
+	React.useEffect(() => {
+		setIsLoading(true);
+		fetch(
+			`https://7f678c67a9e8e4e6.mokky.dev/items?${
+				categoryId > 0 ? `category=${categoryId}` : ''
+			}&sortBy=${sortType.sortProperty}`
+		)
+			.then((res) => res.json())
+			.then((data) => setItems(data))
+			.finally(() => setIsLoading(false));
 		window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+	}, [categoryId, sortType]);
 
 	return (
-		<div className='container'>
+		<div className="container">
 			<div className="content__top">
-				<Categories value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
+				<Categories
+					value={categoryId}
+					onClickCategory={(i) => setCategoryId(i)}
+				/>
 				<Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>

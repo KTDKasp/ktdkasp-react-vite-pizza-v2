@@ -24,7 +24,7 @@ function App() {
 			<button onClick={() => dispatch(decrement())}>Decrement</button>
 
 
-			{/* <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+			<SearchContext.Provider value={{ searchValue, setSearchValue }}>
 				<Header />
 				<div className="content">
 					<Routes>
@@ -33,7 +33,7 @@ function App() {
 						<Route path="*" element={<NotFound />} />
 					</Routes>
 				</div>
-			</SearchContext.Provider> */}
+			</SearchContext.Provider>
 		</div>
 	);
 }

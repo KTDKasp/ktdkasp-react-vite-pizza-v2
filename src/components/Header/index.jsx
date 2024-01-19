@@ -20,7 +20,7 @@ export function Header() {
 				<Search />
 				<div className="header__cart">
 					<Link to="/cart" className="button button--cart">
-						<span>520 ₽</span>
+						<span>520&nbsp;₽</span>
 						<div className="button__delimiter"></div>
 						<svg
 							width="18"

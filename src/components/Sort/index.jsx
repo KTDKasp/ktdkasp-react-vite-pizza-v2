@@ -1,6 +1,6 @@
 import React from 'react';
 
-const popupList = [
+export const popupList = [
 	{ name: 'популярности (DESC)', sortProperty: '-rating' },
 	{ name: 'популярности (ASC)', sortProperty: 'rating' },
 	{ name: 'цене (DESC)', sortProperty: '-price' },

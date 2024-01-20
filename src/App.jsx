@@ -29,4 +29,5 @@ function App() {
 	);
 }
 
+// Экспорт основного приложения в main
 export default App;

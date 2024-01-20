@@ -11,14 +11,29 @@ export const popupList = [
 
 export function Sort({ value, onChangeSort }) {
 	const [open, setOpen] = React.useState(false);
+	const sortRef = React.useRef();
 
 	const onClickListItem = (index) => {
 		onChangeSort(index);
 		setOpen(!open);
 	};
 
+	React.useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (!(event.target.offsetParent === sortRef.current)) {
+				setOpen(false);
+			}
+		}
+
+		document.body.addEventListener('click', handleClickOutside);
+
+		return () => {
+			document.body.removeEventListener('click', handleClickOutside);
+		}
+	}, []);
+
 	return (
-		<div className="sort">
+		<div ref={sortRef} className="sort">
 			<div className="sort__label">
 				<svg
 					width="10"

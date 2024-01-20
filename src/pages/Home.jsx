@@ -63,8 +63,6 @@ export const Home = () => {
 		if (window.location.search) {
 			const params = QueryString.parse(window.location.search.substring(1));
 			const sort = popupList.find(obj => obj.sortProperty === params.sortProperty);
-			
-			console.log(params, sort);
 
 			dispatch(
 				setFilters({

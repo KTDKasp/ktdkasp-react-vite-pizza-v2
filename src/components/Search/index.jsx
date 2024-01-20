@@ -27,8 +27,6 @@ export const Search = () => {
 		updateInputValue(event.target.value);
 	}
 
-
-
 	return (
 		<div className={styles.root}>
 			<svg className={styles.icon} viewBox="0 0 20 20">

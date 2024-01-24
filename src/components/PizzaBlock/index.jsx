@@ -1,26 +1,8 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { addItem } from '../../redux/slices/cartSlice';
-
-const typeNames = ['Тонкое', 'Традиционное']
 
 export function PizzaBlock({ id, imageUrl, title, price, sizes, types }) {
 	const [activeSize, setActiveSize] = React.useState(0);
 	const [activeType, setActiveType] = React.useState(0);
-	const dispatch = useDispatch();
-
-	const onClickAdd = () => {
-		const item = {
-			id,
-			title,
-			price,
-			imageUrl,
-			type: typeNames[activeType],
-			size: activeSize
-		};
-		dispatch(addItem(item));
-	};
 
 	return (
 		<div className='pizza-block__wrapper'>

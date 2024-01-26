@@ -27,20 +27,25 @@ export const Home = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const fetchPizzas = () => {
+	const fetchPizzas = async () => {
 		setIsLoading(true);
-		axios.get(
-			`https://7f678c67a9e8e4e6.mokky.dev/items?page=${currentPage}&limit=4${
-				categoryId > 0 ? `&category=${categoryId}` : ''
-			}&sortBy=${sortType.sortProperty}${
-				searchValue ? `&title=*${searchValue}*` : ''
-			}`
-		)
-		.then(res => {
-			setItems(res.data.items);
-			setPageMetaData(res.data.meta);
-		})
-		.finally(() => setIsLoading(false))
+		try {
+			const { data } = await axios.get(
+				`https://7f678c67a9e8e4e6.mokky.dev/items?page=${currentPage}&limit=4${
+					categoryId > 0 ? `&category=${categoryId}` : ''
+				}&sortBy=${sortType.sortProperty}${
+					searchValue ? `&title=*${searchValue}*` : ''
+				}`
+			)		
+			setItems(data.items);
+			setPageMetaData(data.meta);
+		} 
+		catch (error) {
+			console.log(`Hey, this is ${error}`);
+		} 
+		finally {
+			setIsLoading(false)
+		}
 	};
 
 	// Если изменили параметры и был первый рендер, то закрепляем параметры в URL

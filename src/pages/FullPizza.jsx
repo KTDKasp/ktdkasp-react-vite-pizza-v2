@@ -1,21 +1,32 @@
+import axios from 'axios';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
 export const FullPizza = () => {
-	const params = useParams();
+	const { id } = useParams();
+	const [pizza, setPizza] = React.useState({});
 
-	console.log(params);
+	React.useEffect(() => {
+		const fetchPizzaData = async () => {
+			try {
+				const { data } = await axios.get("https://7f678c67a9e8e4e6.mokky.dev/items/" + id);
+				setPizza(data);
+			} catch (error) {
+				console.log(`Hey, you have ${error}`);
+			}
+		}
+		fetchPizzaData();
+	}, [])
+
+	if (!pizza) {
+		return (<h2>Loading...</h2>);
+	}
+
 	return (
 		<div className='container'>
-			<img src="" alt="name" />
-			<h2>Big Pizza</h2>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio esse
-				optio nisi itaque dignissimos eaque provident enim consectetur id,
-				obcaecati aliquid ipsum molestiae similique est tempore delectus qui
-				asperiores autem.
-			</p>
-			<h4>250 ₽</h4>
+			<img src={pizza.imageUrl} alt="name" />
+			<h2>{pizza.title}</h2>
+			<h4>{pizza.price} ₽</h4>
 		</div>
 	);
 };

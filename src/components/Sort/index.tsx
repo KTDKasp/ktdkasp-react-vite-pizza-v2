@@ -32,8 +32,10 @@ export const Sort: React.FC<SortProps> = ({ value, onChangeSort }) => {
 	};
 
 	React.useEffect(() => {
-		const handleClickOutside = (event: any) => {
-			if (!(event.target.offsetParent === sortRef.current)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			console.log(event);
+			
+			if (!(sortRef.current && event.composedPath().includes(sortRef.current))) {
 				setOpen(false);
 			}
 		}

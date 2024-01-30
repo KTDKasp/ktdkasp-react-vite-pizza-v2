@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import debounce from 'lodash.debounce';
 import { useDispatch } from 'react-redux';
 
@@ -25,7 +25,7 @@ export const Search: React.FC = () => {
 		[]
 	);
 
-	const onChangeInput = (event: any) => {
+	const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
 		setInputValue(event.target.value);
 		updateInputValue(event.target.value);
 	}

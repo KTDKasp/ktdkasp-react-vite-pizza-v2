@@ -11,7 +11,7 @@ import { setCategoryId, setSortType, setCurrentPage, setFilters, selectFilter } 
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 import QueryString from 'qs';
 
-export const Home = () => {
+export const Home: React.FC = () => {
 	const isSearch = React.useRef(false);
 	const isMounted = React.useRef(false);
 
@@ -21,7 +21,9 @@ export const Home = () => {
 	const navigate = useNavigate();
 
 	const getPizzas = async () => {
-		dispatch(fetchPizzas({
+		dispatch(
+			// @ts-ignore
+			fetchPizzas({
 			categoryId,
 			sortType,
 			currentPage,
@@ -75,9 +77,9 @@ export const Home = () => {
 			<div className="content__top">
 				<Categories
 					value={categoryId}
-					onClickCategory={(i) => dispatch(setCategoryId(i))}
+					onClickCategory={(i: number) => dispatch(setCategoryId(i))}
 				/>
-				<Sort value={sortType} onChangeSort={(i) => dispatch(setSortType(i))} />
+				<Sort value={sortType} onChangeSort={(i: number) => dispatch(setSortType(i))} />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			{
@@ -90,7 +92,7 @@ export const Home = () => {
 					<div className="content__items">
 						{ status === 'loading' 
 							? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-							: items.map((obj) => (
+							: items.map((obj: any) => (
 									<PizzaBlock
 										key={obj.id}
 										id={obj.id}
@@ -106,7 +108,7 @@ export const Home = () => {
 					</div>
 				)
 			}
-			<Pagination currentPage={currentPage} onChangePage={(number) => dispatch(setCurrentPage(number))} />
+			<Pagination currentPage={currentPage} onChangePage={(page: number) => dispatch(setCurrentPage(page))} />
 		</div>
 	);
 };

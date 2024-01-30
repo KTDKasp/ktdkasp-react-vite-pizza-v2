@@ -1,6 +1,19 @@
 import React from 'react';
 
-export const popupList = [
+type ListInfo = {
+	name: string,
+	sortProperty: string
+}
+
+type SortProps = {
+	value: {
+		name: string,
+		sortProperty: string,
+	},
+	onChangeSort: any,
+};
+
+export const popupList: ListInfo[] = [
 	{ name: 'популярности (DESC)', sortProperty: '-rating' },
 	{ name: 'популярности (ASC)', sortProperty: 'rating' },
 	{ name: 'цене (DESC)', sortProperty: '-price' },
@@ -9,17 +22,17 @@ export const popupList = [
 	{ name: 'алфавиту (ASC)', sortProperty: 'title' },
 ];
 
-export function Sort({ value, onChangeSort }) {
+export const Sort: React.FC<SortProps> = ({ value, onChangeSort }) => {
 	const [open, setOpen] = React.useState(false);
-	const sortRef = React.useRef();
+	const sortRef = React.useRef<HTMLDivElement>(null);
 
-	const onClickListItem = (index) => {
+	const onClickListItem = (index: ListInfo) => {
 		onChangeSort(index);
 		setOpen(!open);
 	};
 
 	React.useEffect(() => {
-		const handleClickOutside = (event) => {
+		const handleClickOutside = (event: any) => {
 			if (!(event.target.offsetParent === sortRef.current)) {
 				setOpen(false);
 			}

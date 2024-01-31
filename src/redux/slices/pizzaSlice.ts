@@ -12,7 +12,7 @@ export type PizzaItem = {
   types: number[],
 };
 
-enum Status {
+export enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
   ERROR = 'failed',
@@ -23,13 +23,21 @@ interface IPizzaSliceState {
   items: PizzaItem[];
 }
 
-export const fetchPizzas = createAsyncThunk<PizzaItem[], IFilterSliceState>(
+export type SearchPizzaParams = {
+  categoryId: number;
+  sortProperty: string;
+  currentPage: number;
+  searchValue: string
+};
+
+
+export const fetchPizzas = createAsyncThunk<PizzaItem[], SearchPizzaParams>(
   'pizza/fetchPizzasStatus',
-  async ({ categoryId, sort: sortType, currentPage, searchValue }) => {
+  async ({ categoryId, sortProperty, currentPage, searchValue }) => {
     const { data } = await axios.get(
       `https://7f678c67a9e8e4e6.mokky.dev/items?page=${currentPage}&limit=4${
         categoryId > 0 ? `&category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}${
+      }&sortBy=${sortProperty}${
         searchValue ? `&title=*${searchValue}*` : ''
       }`
     );

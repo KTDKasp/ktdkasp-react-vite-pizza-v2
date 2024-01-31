@@ -12,3 +12,5 @@ export const store = configureStore({
 		pizza: pizzaReducer,
 	}
 });
+
+export type RootState = ReturnType<typeof store.getState>

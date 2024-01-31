@@ -1,9 +1,5 @@
 import React from 'react';
-
-type ListInfo = {
-	name: string,
-	sortProperty: string
-}
+import { SortType } from '../../redux/slices/filterSlice';
 
 type SortProps = {
 	value: {
@@ -13,7 +9,7 @@ type SortProps = {
 	onChangeSort: any,
 };
 
-export const popupList: ListInfo[] = [
+export const popupList: SortType[] = [
 	{ name: 'популярности (DESC)', sortProperty: '-rating' },
 	{ name: 'популярности (ASC)', sortProperty: 'rating' },
 	{ name: 'цене (DESC)', sortProperty: '-price' },
@@ -26,15 +22,13 @@ export const Sort: React.FC<SortProps> = ({ value, onChangeSort }) => {
 	const [open, setOpen] = React.useState(false);
 	const sortRef = React.useRef<HTMLDivElement>(null);
 
-	const onClickListItem = (index: ListInfo) => {
+	const onClickListItem = (index: SortType) => {
 		onChangeSort(index);
 		setOpen(!open);
 	};
 
 	React.useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			console.log(event);
-			
+		const handleClickOutside = (event: MouseEvent) => {			
 			if (!(sortRef.current && event.composedPath().includes(sortRef.current))) {
 				setOpen(false);
 			}

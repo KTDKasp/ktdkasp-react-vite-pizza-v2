@@ -7,8 +7,8 @@ import { Sort, popupList } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { Pagination } from '../components/Pagination';
-import { setCategoryId, setSortType, setCurrentPage, setFilters, selectFilter } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { setCategoryId, setSortType, setCurrentPage, setFilters, selectFilter, SortType } from '../redux/slices/filterSlice';
+import { PizzaItem, fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 import QueryString from 'qs';
 
 export const Home: React.FC = () => {
@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
 			// @ts-ignore
 			fetchPizzas({
 			categoryId,
-			sortType,
+			sort: sortType,
 			currentPage,
 			searchValue,
 		}));
@@ -79,7 +79,7 @@ export const Home: React.FC = () => {
 					value={categoryId}
 					onClickCategory={(i: number) => dispatch(setCategoryId(i))}
 				/>
-				<Sort value={sortType} onChangeSort={(i: number) => dispatch(setSortType(i))} />
+				<Sort value={sortType} onChangeSort={(i: SortType) => dispatch(setSortType(i))} />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			{
@@ -92,7 +92,7 @@ export const Home: React.FC = () => {
 					<div className="content__items">
 						{ status === 'loading' 
 							? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-							: items.map((obj: any) => (
+							: items.map((obj: PizzaItem) => (
 									<PizzaBlock
 										key={obj.id}
 										id={obj.id}

@@ -14,7 +14,7 @@ const categoriesList = [
 	'Закрытые',
 ];
 
-export const Categories: React.FC<CategoriesProps> = ({ value, onClickCategory }) => {
+export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onClickCategory }) => {
 
 	return (
 		<div className="categories">
@@ -31,4 +31,4 @@ export const Categories: React.FC<CategoriesProps> = ({ value, onClickCategory }
 			</ul>
 		</div>
 	);
-}
+});

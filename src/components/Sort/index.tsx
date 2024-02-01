@@ -6,7 +6,7 @@ type SortProps = {
 		name: string,
 		sortProperty: string,
 	},
-	onChangeSort: any,
+	onChangeSort: (idx: SortType) => void,
 };
 
 export const popupList: SortType[] = [
@@ -18,7 +18,7 @@ export const popupList: SortType[] = [
 	{ name: 'алфавиту (ASC)', sortProperty: 'title' },
 ];
 
-export const Sort: React.FC<SortProps> = ({ value, onChangeSort }) => {
+export const Sort: React.FC<SortProps> = React.memo(({ value, onChangeSort }) => {
 	const [open, setOpen] = React.useState(false);
 	const sortRef = React.useRef<HTMLDivElement>(null);
 
@@ -76,4 +76,4 @@ export const Sort: React.FC<SortProps> = ({ value, onChangeSort }) => {
 			)}
 		</div>
 	);
-}
+});

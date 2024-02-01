@@ -11,15 +11,21 @@ import { setCategoryId, setSortType, setCurrentPage, setFilters, selectFilter, S
 import { PizzaItem, SearchPizzaParams, fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 import QueryString from 'qs';
 import { useAppDispatch } from '../redux/store';
-
+ 
 export const Home: React.FC = () => {
 	const isSearch = React.useRef(false);
 	const isMounted = React.useRef(false);
-
+	
 	const { items, status } = useSelector(selectPizzaData);
 	const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
+	const onClickCategory = React.useCallback((i: number) => {
+		dispatch(setCategoryId(i))
+	}, []);
+
+	const onChangeSort = React.useCallback((i: SortType) => dispatch(setSortType(i)), []);
 
 	const getPizzas = async () => {
 		dispatch(
@@ -79,9 +85,9 @@ export const Home: React.FC = () => {
 			<div className="content__top">
 				<Categories
 					value={categoryId}
-					onClickCategory={(i: number) => dispatch(setCategoryId(i))}
+					onClickCategory={onClickCategory}
 				/>
-				<Sort value={sort} onChangeSort={(i: SortType) => dispatch(setSortType(i))} />
+				<Sort value={sort} onChangeSort={onChangeSort} />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			{

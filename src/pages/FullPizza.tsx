@@ -8,7 +8,7 @@ interface pizzaData {
 	price: number,
 }
 
-export const FullPizza: React.FC = () => {
+const FullPizza: React.FC = () => {
 	const { id } = useParams();
 	const [pizza, setPizza] = React.useState<pizzaData>();
 	const navigate = useNavigate();
@@ -42,3 +42,5 @@ export const FullPizza: React.FC = () => {
 		</div>
 	);
 };
+
+export default FullPizza;

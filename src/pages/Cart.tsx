@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { CartItemBlock } from '../components/CartItem';
-import { CartItem, clearItems, selectCart } from '../redux/slices/cartSlice';
 import { EmptyCart } from '../components/EmptyCart';
+import { selectCart } from '../redux/cart/selectors';
+import { CartItem } from '../redux/cart/types';
+import { clearItems } from '../redux/cart/slice';
 
-export const Cart: React.FC = () => {
+const Cart: React.FC = () => {
 	const { items, totalPrice } = useSelector(selectCart);
 	const dispatch = useDispatch();
 
@@ -144,3 +146,5 @@ export const Cart: React.FC = () => {
 		</div>
 	);
 };
+
+export default Cart;

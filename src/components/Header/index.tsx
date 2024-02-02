@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import { Search } from '../Search';
 
 import logoSvg from '../../assets/img/pizza-logo.svg';
-import { CartItem, selectCart } from '../../redux/slices/cartSlice';
+import { selectCart } from '../../redux/cart/selectors';
+import { CartItem } from '../../redux/cart/types';
 
 export const Header: React.FC = () => {
 	const { pathname } = useLocation();

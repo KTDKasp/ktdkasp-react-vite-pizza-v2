@@ -7,10 +7,14 @@ import { Sort, popupList } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { Pagination } from '../components/Pagination';
-import { setCategoryId, setSortType, setCurrentPage, setFilters, selectFilter, SortType, IFilterSliceState } from '../redux/slices/filterSlice';
-import { PizzaItem, SearchPizzaParams, fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 import QueryString from 'qs';
 import { useAppDispatch } from '../redux/store';
+import { selectPizzaData } from '../redux/pizza/selectors';
+import { selectFilter } from '../redux/filter/selectors';
+import { setCategoryId, setCurrentPage, setFilters, setSortType } from '../redux/filter/slice';
+import { SortType } from '../redux/filter/types';
+import { fetchPizzas } from '../redux/pizza/slice';
+import { PizzaItem, SearchPizzaParams } from '../redux/pizza/types';
  
 export const Home: React.FC = () => {
 	const isSearch = React.useRef(false);
@@ -25,7 +29,13 @@ export const Home: React.FC = () => {
 		dispatch(setCategoryId(i))
 	}, []);
 
-	const onChangeSort = React.useCallback((i: SortType) => dispatch(setSortType(i)), []);
+	const onChangeSort = React.useCallback((i: SortType) => {
+		dispatch(setSortType(i))
+	}, []);
+
+	const onChangePage = React.useCallback((page: number) => {
+		dispatch(setCurrentPage(page))
+	}, []);
 
 	const getPizzas = async () => {
 		dispatch(
@@ -116,7 +126,7 @@ export const Home: React.FC = () => {
 					</div>
 				)
 			}
-			<Pagination currentPage={currentPage} onChangePage={(page: number) => dispatch(setCurrentPage(page))} />
+			<Pagination currentPage={currentPage} onChangePage={onChangePage} />
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SortType } from '../../redux/slices/filterSlice';
+import { SortType } from '../../redux/filter/types';
 
 type SortProps = {
 	value: {
